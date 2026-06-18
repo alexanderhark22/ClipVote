@@ -1,38 +1,37 @@
 # ClipVote
 
-> Likes are free, so they're worthless.
-> Here a vote is real money.
+### Stop liking. Start paying.
 
-ClipVote is a video leaderboard where every vote is a **USDC micro-payment that
-goes straight to the creator**. Clips rank by the dollars behind them — not bots,
-not hearts. Conviction you can verify on-chain.
+A video leaderboard where a vote is a real USDC dollar — paid straight to the
+creator, and clips ranked by money instead of hearts.
 
-**Live:** https://clipvote.vercel.app
+**→ [clipvote.vercel.app](https://clipvote.vercel.app)**
 
-### The catch that makes it work
+---
 
-A vote worth a dime only makes sense if it's actually a dime.
+**Wait — you pay to vote?**
+Yep. A vote is a USDC micro-payment (start it at 10¢). It lands in the creator's
+wallet instantly. No hearts, no inflated numbers.
 
-On most chains a "paid vote" means a volatile gas token, or USDC trapped behind
-ERC-20 approvals and bridges — nobody spends ten cents through that. ARC settles
-in **native USDC**, so a vote is one tap, one transaction, one stable dollar
-amount. That's the whole thing. Take ARC away and the product doesn't exist.
+**Why would I do that instead of just hitting like?**
+Because a free like is worthless — that's exactly why every feed is stuffed with
+bots. The second a vote costs a real dime, the ranking finally means something:
+it's literally the money people put behind a clip.
 
-### One contract, that's it
+**Ten cents on a blockchain? Isn't that a $5 gas nightmare?**
+Not here. ARC settles in *native USDC*, so a vote is one tap, one transaction, one
+stable dollar amount — no token to buy, no approvals, no bridges. That's the whole
+trick. Take ARC away and this thing genuinely can't exist.
 
-Every clip, every vote, every payout runs through a single verified contract on
-ARC Testnet:
+**Where does the money and the data actually live?**
+In one contract. Every clip, every vote, every payout runs through a single
+verified contract on ARC Testnet —
+[`0xaF79A2097200591f1CDcC6f11B2b78F75001CFa8`](https://testnet.arcscan.app/address/0xaF79A2097200591f1CDcC6f11B2b78F75001CFa8).
+No fees, no custody, no backend.
 
-```
-0xaF79A2097200591f1CDcC6f11B2b78F75001CFa8
-```
+**Can I just vote for my own clip?**
+No. Nice try.
 
-No fees, no custody. The USDC moves wallet-to-wallet in the same transaction as
-the vote, and anyone can read the whole thing on
-[ArcScan](https://testnet.arcscan.app/address/0xaF79A2097200591f1CDcC6f11B2b78F75001CFa8).
+---
 
-### Under the hood
-
-`Next.js` · `ethers v6` · `Solidity` · EIP-6963 wallet support (Rabby / MetaMask /
-whatever) · no backend at all — it's static on Vercel and reads straight from the
-chain. Connect a wallet, drop a video link, and let the dollars decide.
+<sub>Next.js · ethers v6 · Solidity · EIP-6963 wallets · static on Vercel, reads straight from the chain.</sub>
