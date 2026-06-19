@@ -19,48 +19,83 @@ export default function Header({ account, balance, chainOk, connecting, onConnec
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(10,10,11,0.72)",
-        backdropFilter: "blur(12px)",
+        background: "rgba(7,10,20,0.66)",
+        backdropFilter: "blur(10px)",
         borderBottom: "1px solid var(--line)",
       }}
     >
       <div
         style={{
-          maxWidth: 1180,
+          maxWidth: "var(--maxw)",
           margin: "0 auto",
-          padding: "13px 24px",
+          padding: "14px 28px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: 16,
         }}
       >
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-          <Logo size={26} />
-          <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.01em" }}>
-            Clip<span className="accent-text">Vote</span>
+        {/* wordmark */}
+        <Link
+          href="/"
+          style={{ display: "flex", alignItems: "center", gap: 11, textDecoration: "none" }}
+        >
+          <Logo size={24} />
+          <span
+            className="serif"
+            style={{ fontSize: 19, fontWeight: 700, letterSpacing: "-0.01em" }}
+          >
+            ClipVote
           </span>
         </Link>
 
+        {/* minimal centre nav (desktop only, decorative editorial wayfinding) */}
+        <nav
+          className="label cv-nav"
+          style={{ display: "flex", gap: 26, letterSpacing: "0.2em" }}
+        >
+          <a href="#leaderboard" style={{ textDecoration: "none", color: "var(--muted)" }}>
+            Leaderboard
+          </a>
+          <a href="#thesis" style={{ textDecoration: "none", color: "var(--muted)" }}>
+            Thesis
+          </a>
+          <a href="#post" style={{ textDecoration: "none", color: "var(--muted)" }}>
+            Submit
+          </a>
+        </nav>
+
+        {/* wallet — restrained, mono */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {account ? (
             <>
               {!chainOk && (
-                <button onClick={() => switchToArc().catch(() => {})} className="btn btn--sm" style={{ borderColor: "#7a3b3b", color: "#e88" }}>
+                <button
+                  onClick={() => switchToArc().catch(() => {})}
+                  className="btn btn--sm"
+                  style={{ borderColor: "rgba(190,120,120,0.6)", color: "#e2a3a3" }}
+                >
                   Switch to ARC
                 </button>
               )}
               <span className="pill" style={{ color: "var(--text)" }}>
-                <span className="accent-text" style={{ fontWeight: 700 }}>{balance || "0"}</span>
+                <span className="accent-text" style={{ fontWeight: 600 }}>
+                  {balance || "0"}
+                </span>
                 <span style={{ color: "var(--muted)" }}>USDC</span>
-                <span style={{ width: 1, height: 13, background: "var(--line-strong)" }} />
-                <a href={`${ARCSCAN}/address/${account}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "var(--muted)" }}>
+                <span style={{ width: 1, height: 12, background: "var(--line-strong)" }} />
+                <a
+                  href={`${ARCSCAN}/address/${account}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none", color: "var(--muted)" }}
+                >
                   {account.slice(0, 6)}…{account.slice(-4)}
                 </a>
               </span>
             </>
           ) : (
-            <button onClick={onConnect} disabled={connecting} className="btn btn--accent">
+            <button onClick={onConnect} disabled={connecting} className="btn">
               {connecting ? "Connecting…" : "Connect wallet"}
             </button>
           )}
