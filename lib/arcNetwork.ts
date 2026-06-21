@@ -8,9 +8,11 @@ declare global {
   }
 }
 
-// ARC Testnet network config
-export const ARC_CHAIN_ID = 5042002;
-export const ARC_CHAIN_HEX = "0x" + ARC_CHAIN_ID.toString(16);
+import { pickProvider, type Eip1193Provider } from "./wallet";
+
+// --- ARC Testnet chain constants -----------------------------------------
+export const ARC_CHAIN_ID = 5042002; // decimal chain id
+export const ARC_CHAIN_HEX = "0x" + ARC_CHAIN_ID.toString(16); // same, hex form
 export const ARC_RPC = "https://rpc.testnet.arc.network";
 export const ARCSCAN = "https://testnet.arcscan.app";
 
@@ -21,8 +23,6 @@ export const ARC_NETWORK_PARAMS = {
   rpcUrls: [ARC_RPC],
   blockExplorerUrls: [ARCSCAN],
 };
-
-import { pickProvider, type Eip1193Provider } from "./wallet";
 
 /**
  * Adds ARC Testnet to the wallet (if not present) and switches to it.

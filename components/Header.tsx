@@ -13,6 +13,9 @@ interface HeaderProps {
 }
 
 export default function Header({ account, balance, chainOk, connecting, onConnect }: HeaderProps) {
+  const shortAddr = account ? `${account.slice(0, 6)}…${account.slice(-4)}` : "";
+  const wrongChain = account && !chainOk;
+
   return (
     <header
       style={{
@@ -65,38 +68,37 @@ export default function Header({ account, balance, chainOk, connecting, onConnec
           </a>
         </nav>
 
-        {/* wallet — restrained, mono */}
+        {/* wallet rail — restrained, mono */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {wrongChain && (
+            <button
+              onClick={() => switchToArc().catch(() => {})}
+              className="btn btn--sm"
+              style={{ borderColor: "rgba(190,120,120,0.6)", color: "#e2a3a3" }}
+            >
+              Switch to ARC
+            </button>
+          )}
+
           {account ? (
-            <>
-              {!chainOk && (
-                <button
-                  onClick={() => switchToArc().catch(() => {})}
-                  className="btn btn--sm"
-                  style={{ borderColor: "rgba(190,120,120,0.6)", color: "#e2a3a3" }}
-                >
-                  Switch to ARC
-                </button>
-              )}
-              <span className="pill" style={{ color: "var(--text)" }}>
-                <span className="accent-text" style={{ fontWeight: 600 }}>
-                  {balance || "0"}
-                </span>
-                <span style={{ color: "var(--muted)" }}>USDC</span>
-                <span style={{ width: 1, height: 12, background: "var(--line-strong)" }} />
-                <a
-                  href={`${ARCSCAN}/address/${account}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none", color: "var(--muted)" }}
-                >
-                  {account.slice(0, 6)}…{account.slice(-4)}
-                </a>
+            <span className="pill" style={{ color: "var(--text)" }}>
+              <span className="accent-text" style={{ fontWeight: 600 }}>
+                {balance || "0"}
               </span>
-            </>
+              <span style={{ color: "var(--muted)" }}>USDC</span>
+              <span style={{ width: 1, height: 12, background: "var(--line-strong)" }} />
+              <a
+                href={`${ARCSCAN}/address/${account}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none", color: "var(--muted)" }}
+              >
+                {shortAddr}
+              </a>
+            </span>
           ) : (
             <button onClick={onConnect} disabled={connecting} className="btn">
-              {connecting ? "Connecting…" : "Connect wallet"}
+              {connecting ? "Opening…" : "Tune in wallet"}
             </button>
           )}
         </div>
